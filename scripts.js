@@ -1,29 +1,26 @@
-// Smooth Scrolling for navigation links
-document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+            const inputs = this.querySelectorAll('input');
+            let valid = true;
+
+            inputs.forEach(input => {
+                if (input.value.trim() === '') {
+                    valid = false;
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = 'green';
+                }
+            });
+
+            if (valid) {
+                alert('Form submitted successfully!');
+                this.reset();
+            } else {
+                alert('Please fill in all fields.');
+            }
         });
     });
-});
-
-// Form Validation
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    let valid = true;
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
-
-    if (name === '' || email === '' || message === '') {
-        valid = false;
-        alert('Please fill in all fields');
-    }
-
-    if (valid) {
-        // Placeholder for form submission code (e.g., AJAX request)
-        alert('Form submitted successfully!');
-    }
 });
